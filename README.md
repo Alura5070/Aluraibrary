@@ -43,7 +43,7 @@ footer{text-align:center;padding:30px;color:#777;margin-top:30px}
 </div>
 
 <div class="grid" id="bookGrid">
-<div class="card" data-cat="PHILOSOPHY"><span class="tag">PHILOSOPHY</span><h3>Meditations - Marcus Aurelius</h3><a href="#">Read / Download</a></div>
+<div class="card" data-cat="PHILOSOPHY"><span class="tag">PHILOSOPHY</span><h3>Meditations - Alfred's Meditations</h3><a href="#">Read / Download</a></div>
 <div class="card" data-cat="PHILOSOPHY"><span class="tag">PHILOSOPHY</span><h3>The Art of Thinking Clearly</h3><a href="#">Read / Download</a></div>
 <div class="card" data-cat="SCIENCE"><span class="tag">SCIENCE</span><h3>A Brief History of Time</h3><a href="#">Read / Download</a></div>
 <div class="card" data-cat="SCIENCE"><span class="tag">SCIENCE</span><h3>The Selfish Gene</h3><a href="#">Read / Download</a></div>
