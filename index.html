@@ -14,23 +14,26 @@ header p{opacity:0.9;margin-top:5px}
 .filters{text-align:center;margin-bottom:10px}
 .filters button{margin:5px;padding:8px 18px;border-radius:20px;border:1px solid #0d3b66;background:white;color:#0d3b66;cursor:pointer}
 .filters button.active,.filters button:hover{background:#0d3b66;color:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;padding:20px;max-width:1100px;margin:auto}
-.card{background:white;border-radius:12px;padding:20px;box-shadow:0 3px 10px rgba(0,0,0,0.08);text-align:center;transition:0.2s}
-.card:hover{transform:translateY(-3px)}
-.card .tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:20px;background:#eef3ff;color:#0d3b66;margin-bottom:10px;font-weight:bold;letter-spacing:1px}
-.card h3{font-size:17px;color:#222;margin:10px 0}
-.card a{background:#0d3b66;color:white;padding:9px 18px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:12px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding:20px;max-width:1200px;margin:auto}
+.card{background:white;border-radius:12px;padding:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08);text-align:center;transition:0.2s;overflow:hidden}
+.card:hover{transform:translateY(-5px)}
+.card img{width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px;background:#ddd}
+.card .cover{width:100%;height:220px;border-radius:8px;background:linear-gradient(135deg,#0d3b66,#3a86ff);display:flex;align-items:center;justify-content:center;color:white;font-size:42px;font-weight:bold;margin-bottom:10px;text-align:center;padding:10px;box-sizing:border-box;word-break:break-word}
+.card .tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:20px;background:#eef3ff;color:#0d3b66;margin-bottom:8px;font-weight:bold}
+.card h3{font-size:15px;color:#222;margin:10px 0;min-height:40px;word-break:break-word}
+.card a{background:#0d3b66;color:white;padding:9px 18px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:10px;font-size:14px}
+#status{text-align:center;padding:20px;color:#666}
 footer{text-align:center;padding:30px;color:#777;margin-top:30px}
 </style>
 </head>
 <body>
 <header>
 <h1>ALURAIBRARY</h1>
-<p>Open Digital Library - Tororo City</p>
+<p>Open Digital Library - Tororo City - Auto Mode</p>
 </header>
 
 <div class="search">
-<input type="text" id="searchBox" onkeyup="filterBooks()" placeholder="Search books, authors, topics...">
+<input type="text" id="searchBox" onkeyup="filterBooks()" placeholder="Search millions of books...">
 </div>
 
 <div class="filters">
@@ -39,54 +42,92 @@ footer{text-align:center;padding:30px;color:#777;margin-top:30px}
 <button onclick="filterCategory('SCIENCE',this)">Science</button>
 <button onclick="filterCategory('TECHNOLOGY',this)">Technology</button>
 <button onclick="filterCategory('ECONOMICS',this)">Economics</button>
-<button onclick="filterCategory('MATHEMATICS',this)">Mathematics</button>
 <button onclick="filterCategory('EDUCATION',this)">Education</button>
 </div>
 
-<div class="grid" id="bookGrid">
+<div id="status">Loading your library...</div>
+<div class="grid" id="bookGrid"></div>
 
-<div class="card" data-cat="PHILOSOPHY">
-<img src="./cover-48laws.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px">
-<span class="tag">PHILOSOPHY</span>
-<h3>48 Laws of Power - Robert Greene</h3>
-<a href="./48-Laws-of-Power-Greene-Robert.pdf" target="_blank">Read / Download</a>
-</div>
-
-<div class="card" data-cat="EDUCATION">
-<img src="./cover-canon.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px">
-<span class="tag">EDUCATION</span>
-<h3>Code of Canon Law 2024</h3>
-<a href="./Code-of-Canon-Law-2024.pdf" target="_blank">Read / Download</a>
-</div>
-
-<div class="card" data-cat="EDUCATION">
-<img src="./cover-legion.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px">
-<span class="tag">EDUCATION</span>
-<h3>The Official Handbook of the Legion of Mary</h3>
-<a href="./The_Official_Handbook_of_the_Legion_of_Mary_(Ed._2024)_.pdf" target="_blank">Read / Download</a>
-</div>
-
-</div>
-
-<footer>ALURAIBRARY © 2026 - Tororo City - Open Knowledge for All, Donate to OPIO ALFRED ON 0784038264 to help sustain this cause</footer>
+<footer>ALURAIBRARY © 2026 - Tororo City - <span id="count">0</span> Books</footer>
 
 <script>
-let currentCat='ALL';
+const REPO = "alura5070/Aluraibrary";
+let allBooks = [];
+let currentCat = 'ALL';
+
+async function loadBooks() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents?per_page=100`);
+    const files = await res.json();
+    const pdfs = files.filter(f => f.name.toLowerCase().endsWith('.pdf'));
+    
+    document.getElementById('status').innerText = `Found ${pdfs.length} books - Building library...`;
+    document.getElementById('count').innerText = pdfs.length;
+
+    allBooks = pdfs.map(file => {
+      let name = file.name.replace('.pdf','').replace(/[-_]/g,' ');
+      let cat = 'EDUCATION';
+      if(name.toLowerCase().includes('law') || name.toLowerCase().includes('power')) cat = 'PHILOSOPHY';
+      
+      // Check for custom cover
+      let baseName = file.name.replace('.pdf','');
+      let possibleCoverJpg = files.find(f => f.name.toLowerCase() === `cover-${baseName.toLowerCase().split('-')[0]}.jpg` || f.name === baseName + '.jpg' || f.name === baseName + '.png');
+      let coverFile = null;
+      // Look for cover with same prefix
+      let customCover = files.find(f => {
+        let low = f.name.toLowerCase();
+        return (low.includes(baseName.toLowerCase().substring(0,5)) && (low.endsWith('.jpg') || low.endsWith('.png') || low.endsWith('.webp'))) && low.startsWith('cover-');
+      });
+
+      // For your 3 known books, use exact covers
+      if(file.name.includes('48-Laws')) coverFile = './cover-48laws.jpg';
+      else if(file.name.includes('Canon')) coverFile = './cover-canon.jpg';
+      else if(file.name.includes('Legion')) coverFile = './cover-legion.jpg';
+      else if(customCover) coverFile = './' + customCover.name;
+
+      return {
+        title: name,
+        file: file.name,
+        cat: cat,
+        cover: coverFile,
+        search: name.toLowerCase()
+      };
+    });
+
+    renderBooks(allBooks);
+    document.getElementById('status').style.display='none';
+  } catch(e){
+    document.getElementById('status').innerText = 'Error loading books. Please refresh. ' + e;
+  }
+}
+
+function renderBooks(books){
+  const grid = document.getElementById('bookGrid');
+  grid.innerHTML = '';
+  books.forEach(b => {
+    let coverHtml = b.cover ? `<img src="${b.cover}" onerror="this.outerHTML='<div class=cover>${b.title.charAt(0)}</div>'">` : `<div class="cover">${b.title.substring(0,2).toUpperCase()}</div>`;
+    let card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.cat = b.cat;
+    card.innerHTML = `${coverHtml}<span class="tag">${b.cat}</span><h3>${b.title}</h3><a href="./${b.file}" target="_blank">Read / Download</a>`;
+    grid.appendChild(card);
+  });
+}
+
 function filterBooks(){
-let q=document.getElementById('searchBox').value.toLowerCase();
-let cards=document.getElementsByClassName('card');
-for(let c of cards){
-let txt=c.innerText.toLowerCase();
-let catMatch=currentCat==='ALL' || c.dataset.cat===currentCat;
-c.style.display=(txt.includes(q) && catMatch)?'':'none';
+  let q = document.getElementById('searchBox').value.toLowerCase();
+  let filtered = allBooks.filter(b => b.search.includes(q) && (currentCat==='ALL' || b.cat===currentCat));
+  renderBooks(filtered);
 }
-}
+
 function filterCategory(cat,btn){
-currentCat=cat;
-document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-filterBooks();
+  currentCat=cat;
+  document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  filterBooks();
 }
+
+loadBooks();
 </script>
 </body>
 </html>
