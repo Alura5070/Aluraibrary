@@ -1,11 +1,11 @@
 {
-  "name": "ALURAIBRARY",
-  "short_name": "ALURAIBRARY",
-  "description": "Open Digital Library - Tororo City - Millions of books",
+  "name": "St Andre House of Formation Library - Jinja City",
+  "short_name": "St Andre Library",
+  "description": "Official Digital Library of St Andre House of Formation, Jinja City - Free Catholic, Philosophy, Theology, Education Books",
   "start_url": "/Aluraibrary/",
   "display": "standalone",
-  "background_color": "#0d3b66",
-  "theme_color": "#0d3b66",
+  "background_color": "#0a1931",
+  "theme_color": "#0a1931",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/29/29302.png",
