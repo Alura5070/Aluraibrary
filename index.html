@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="manifest" href="./manifest.json">
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./service-worker.js')}</script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALURAIBRARY - Digital Library</title>
+<title>ANDRE HOUSE OF FORMATION - Digital Library</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0d3b66">
 <style>
 body{font-family:Arial,sans-serif;margin:0;background:#f5f7fa}
 header{background:#0d3b66;color:white;padding:30px 20px;text-align:center}
@@ -24,14 +24,16 @@ header p{opacity:0.9;margin-top:5px}
 .card .tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:20px;background:#eef3ff;color:#0d3b66;margin-bottom:8px;font-weight:bold}
 .card h3{font-size:15px;color:#222;margin:10px 0;min-height:40px;word-break:break-word}
 .card a{background:#0d3b66;color:white;padding:9px 18px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:10px;font-size:14px}
+#installBtn{display:none;background:#25D366;color:white;border:none;padding:14px 28px;border-radius:30px;font-size:16px;font-weight:bold;cursor:pointer;margin:20px auto;box-shadow:0 4px 10px rgba(0,0,0,0.2)}
 #status{text-align:center;padding:20px;color:#666}
 footer{text-align:center;padding:30px;color:#777;margin-top:30px}
 </style>
 </head>
 <body>
 <header>
-<h1>ALURAIBRARY</h1>
+<h1>ANDRE HOUSE OF FORMATION</h1>
 <p>Open Digital Library - Tororo City - Auto Mode</p>
+<button id="installBtn">📲 INSTALL ALURAIBRARY APP</button>
 </header>
 
 <div class="search">
@@ -49,60 +51,54 @@ footer{text-align:center;padding:30px;color:#777;margin-top:30px}
 
 <div id="status">Loading your library...</div>
 <div class="grid" id="bookGrid"></div>
-
-<footer>ALURAIBRARY © 2026 - Tororo City -DONATE TO THE DEVELOPER, OPIO ALFRED (0784038264) to aid in maitaining this library <span id="count">0</span> Books</footer>
+<footer>ALURAIBRARY © 2026 - Tororo City -DONATE TO THE DEVELOPER, OPIO ALFRED (0784038264) to aid in maitaining this library - <span id="count">0</span> Books</footer>
 
 <script>
+// PWA INSTALL LOGIC
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
+});
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') installBtn.style.display = 'none';
+    deferredPrompt = null;
+  }
+});
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js');
+}
+
 const REPO = "alura5070/Aluraibrary";
 let allBooks = [];
 let currentCat = 'ALL';
-
 async function loadBooks() {
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}/contents?per_page=100`);
     const files = await res.json();
     const pdfs = files.filter(f => f.name.toLowerCase().endsWith('.pdf'));
-    
-    document.getElementById('status').innerText = `Found ${pdfs.length} books - Building library...`;
+    document.getElementById('status').innerText = `Found ${pdfs.length} books`;
     document.getElementById('count').innerText = pdfs.length;
-
+    if(pdfs.length===0){document.getElementById('status').innerText='No PDFs found. Upload PDFs!'; return;}
     allBooks = pdfs.map(file => {
       let name = file.name.replace('.pdf','').replace(/[-_]/g,' ');
       let cat = 'EDUCATION';
       if(name.toLowerCase().includes('law') || name.toLowerCase().includes('power')) cat = 'PHILOSOPHY';
-      
-      // Check for custom cover
-      let baseName = file.name.replace('.pdf','');
-      let possibleCoverJpg = files.find(f => f.name.toLowerCase() === `cover-${baseName.toLowerCase().split('-')[0]}.jpg` || f.name === baseName + '.jpg' || f.name === baseName + '.png');
       let coverFile = null;
-      // Look for cover with same prefix
-      let customCover = files.find(f => {
-        let low = f.name.toLowerCase();
-        return (low.includes(baseName.toLowerCase().substring(0,5)) && (low.endsWith('.jpg') || low.endsWith('.png') || low.endsWith('.webp'))) && low.startsWith('cover-');
-      });
-
-      // For your 3 known books, use exact covers
       if(file.name.includes('48-Laws')) coverFile = './cover-48laws.jpg';
       else if(file.name.includes('Canon')) coverFile = './cover-canon.jpg';
       else if(file.name.includes('Legion')) coverFile = './cover-legion.jpg';
-      else if(customCover) coverFile = './' + customCover.name;
-
-      return {
-        title: name,
-        file: file.name,
-        cat: cat,
-        cover: coverFile,
-        search: name.toLowerCase()
-      };
+      return { title: name, file: file.name, cat: cat, cover: coverFile, search: name.toLowerCase() };
     });
-
     renderBooks(allBooks);
-    document.getElementById('status').style.display='none';
-  } catch(e){
-    document.getElementById('status').innerText = 'Error loading books. Please refresh. ' + e;
-  }
+    setTimeout(()=>{document.getElementById('status').style.display='none';},1000);
+  } catch(e){ document.getElementById('status').innerText = 'Loading... Please refresh. ' + e; }
 }
-
 function renderBooks(books){
   const grid = document.getElementById('bookGrid');
   grid.innerHTML = '';
@@ -115,20 +111,17 @@ function renderBooks(books){
     grid.appendChild(card);
   });
 }
-
 function filterBooks(){
   let q = document.getElementById('searchBox').value.toLowerCase();
   let filtered = allBooks.filter(b => b.search.includes(q) && (currentCat==='ALL' || b.cat===currentCat));
   renderBooks(filtered);
 }
-
 function filterCategory(cat,btn){
   currentCat=cat;
   document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   filterBooks();
 }
-
 loadBooks();
 </script>
 </body>
