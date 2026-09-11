@@ -3,125 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANDRE HOUSE OF FORMATION - Digital Library</title>
+
+<!-- GOOGLE SEARCH SEO - This makes you appear on Google -->
+<title>St Andre House of Formation Library | Jinja City | Free Catholic Library</title>
+<meta name="description" content="Official Digital Library of St Andre House of Formation, Jinja City. Access thousands of free Catholic, Theology, Philosophy, Science and Education books.">
+<meta name="keywords" content="St Andre House of Formation, Jinja City Library, Catholic library Uganda, Seminary library Jinja, free theology books, philosophy books">
+<meta name="author" content="St Andre House of Formation, Jinja">
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0d3b66">
+<meta name="theme-color" content="#0a1931">
+<meta property="og:title" content="St Andre House of Formation Library - Jinja City">
+<meta property="og:description" content="Free Digital Catholic Library - Millions of books - Jinja City">
+<meta property="og:type" content="website">
+
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f5f7fa}
-header{background:#0d3b66;color:white;padding:30px 20px;text-align:center}
-header h1{margin:0;letter-spacing:3px;font-size:32px}
-header p{opacity:0.9;margin-top:5px}
-.search{margin:25px auto;max-width:650px;text-align:center;padding:0 15px}
-.search input{width:85%;padding:14px 20px;border-radius:30px;border:1px solid #ccc;font-size:16px}
-.filters{text-align:center;margin-bottom:10px}
-.filters button{margin:5px;padding:8px 18px;border-radius:20px;border:1px solid #0d3b66;background:white;color:#0d3b66;cursor:pointer}
-.filters button.active,.filters button:hover{background:#0d3b66;color:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding:20px;max-width:1200px;margin:auto}
-.card{background:white;border-radius:12px;padding:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08);text-align:center;transition:0.2s;overflow:hidden}
-.card:hover{transform:translateY(-5px)}
-.card img{width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px;background:#ddd}
-.card .cover{width:100%;height:220px;border-radius:8px;background:linear-gradient(135deg,#0d3b66,#3a86ff);display:flex;align-items:center;justify-content:center;color:white;font-size:42px;font-weight:bold;margin-bottom:10px;text-align:center;padding:10px;box-sizing:border-box;word-break:break-word}
-.card .tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:20px;background:#eef3ff;color:#0d3b66;margin-bottom:8px;font-weight:bold}
-.card h3{font-size:15px;color:#222;margin:10px 0;min-height:40px;word-break:break-word}
-.card a{background:#0d3b66;color:white;padding:9px 18px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:10px;font-size:14px}
-#installBtn{display:none;background:#25D366;color:white;border:none;padding:14px 28px;border-radius:30px;font-size:16px;font-weight:bold;cursor:pointer;margin:20px auto;box-shadow:0 4px 10px rgba(0,0,0,0.2)}
-#status{text-align:center;padding:20px;color:#666}
-footer{text-align:center;padding:30px;color:#777;margin-top:30px}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#f4f6f9;color:#222}
+header{background:#0a1931;color:white;padding:15px 20px;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo h1{margin:0;font-size:22px;letter-spacing:1px}
+.logo span{font-size:12px;opacity:0.8;letter-spacing:2px}
+.menu-toggle{display:none;font-size:26px;cursor:pointer}
+nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+nav a{color:white;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2);transition:0.2s}
+nav a:hover{background:white;color:#0a1931}
+#installBtn{display:none;background:#ffc947;color:#0a1931;border:none;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:12px}
+.hero{background:linear-gradient(135deg,#0a1931,#185adb);color:white;text-align:center;padding:50px 20px}
+.hero h2{font-size:32px;margin:0 0 10px}
+.hero p{opacity:0.9;max-width:600px;margin:10px auto}
+.search{margin:-25px auto 20px;max-width:700px;text-align:center;padding:0 15px;position:relative}
+.search input{width:100%;padding:16px 22px;border-radius:30px;border:none;font-size:16px;box-shadow:0 8px 25px rgba(0,0,0,0.15)}
+.filters{text-align:center;margin:15px}
+.filters button{margin:4px;padding:8px 16px;border-radius:20px;border:1px solid #0a1931;background:white;color:#0a1931;cursor:pointer;font-size:12px}
+.filters button.active,.filters button:hover{background:#0a1931;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;padding:20px;max-width:1200px;margin:auto}
+.card{background:white;border-radius:12px;padding:12px;box-shadow:0 3px 12px rgba(0,0,0,0.07);text-align:center;transition:0.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+.card img{width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:8px}
+.card .cover{width:100%;height:200px;border-radius:8px;background:linear-gradient(135deg,#0a1931,#185adb);display:flex;align-items:center;justify-content:center;color:white;font-size:32px;font-weight:bold}
+.card .tag{font-size:10px;padding:3px 8px;border-radius:12px;background:#e8efff;color:#0a1931;font-weight:bold}
+.card h3{font-size:13px;color:#222;margin:8px 0;min-height:36px;word-break:break-word}
+.card a{background:#0a1931;color:white;padding:7px 14px;border-radius:20px;text-decoration:none;display:inline-block;font-size:12px;margin-top:5px}
+section{max-width:950px;margin:35px auto;background:white;padding:28px 22px;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.05)}
+section h2{color:#0a1931;border-left:5px solid #ffc947;padding-left:12px;margin-top:0}
+.donate-box{background:linear-gradient(135deg,#fff8e1,#ffecb3);border:2px dashed #ffc947;padding:20px;border-radius:12px;text-align:center;margin-top:15px}
+.btn-donate{background:#ffc947;color:#0a1931;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-block;margin:8px;border:none;cursor:pointer}
+.btn-whatsapp{background:#25D366;color:white;padding:12px 22px;border-radius:30px;text-decoration:none;display:inline-block;font-weight:bold;margin:5px}
+footer{background:#0a1931;color:white;text-align:center;padding:35px 20px;margin-top:40px}
+footer a{color:#ffc947;text-decoration:none;margin:0 8px;font-size:13px}
+#status{text-align:center;padding:15px;color:#666}
+@media(max-width:768px){
+ .menu-toggle{display:block}
+ nav{display:none;width:100%;flex-direction:column;margin-top:15px}
+ nav.show{display:flex}
+ .hero h2{font-size:24px}
+}
 </style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Library",
+ "name":"St Andre House of Formation Library",
+ "address":{"@type":"PostalAddress","addressLocality":"Jinja City","addressCountry":"UG"},
+ "description":"Official free digital library of St Andre House of Formation Jinja"
+}
+</script>
 </head>
 <body>
 <header>
-<h1>ANDRE HOUSE OF FORMATION</h1>
-<p>Open Digital Library - Tororo City - Auto Mode</p>
-<button id="installBtn">📲 INSTALL ALURAIBRARY APP</button>
+<div class="logo"><h1>ST ANDRE HOUSE</h1><span>OF FORMATION • JINJA CITY LIBRARY</span></div>
+<div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('show')">☰</div>
+<nav>
+<a href="#books">Books</a>
+<a href="#about">About</a>
+<a href="#about">Comment/Reviews</a>
+<a href="#request">Request</a>
+<a href="#donate">Donate</a>
+<a href="#privacy">Privacy</a>
+<a href="#contact">Contact</a>
+<button id="installBtn">📲 INSTALL APP</button>
+</nav>
 </header>
 
-<div class="search">
-<input type="text" id="searchBox" onkeyup="filterBooks()" placeholder="Search millions of books...">
+<div class="hero">
+<h2>Welcome to St Andre House of Formation Digital Library</h2>
+<p>Official free library for Seminarians, Students & Public - Theology, Philosophy, Canon Law, Science, Education - Jinja City, Uganda</p>
 </div>
 
+<div class="search" id="books">
+<input type="text" id="searchBox" onkeyup="filterBooks()" placeholder="Search by title, e.g., Aquinas, Canon Law, Philosophy...">
+</div>
 <div class="filters">
-<button class="active" onclick="filterCategory('ALL',this)">ALL</button>
+<button class="active" onclick="filterCategory('ALL',this)">ALL BOOKS</button>
+<button onclick="filterCategory('THEOLOGY',this)">Theology</button>
 <button onclick="filterCategory('PHILOSOPHY',this)">Philosophy</button>
+<button onclick="filterCategory('CANON LAW',this)">Canon Law</button>
 <button onclick="filterCategory('SCIENCE',this)">Science</button>
-<button onclick="filterCategory('TECHNOLOGY',this)">Technology</button>
-<button onclick="filterCategory('ECONOMICS',this)">Economics</button>
 <button onclick="filterCategory('EDUCATION',this)">Education</button>
 </div>
 
-<div id="status">Loading your library...</div>
+<div id="status">Loading blessed library...</div>
 <div class="grid" id="bookGrid"></div>
-<footer>ALURAIBRARY © 2026 - Tororo City -DONATE TO THE DEVELOPER, OPIO ALFRED (0784038264) to aid in maitaining this library - <span id="count">0</span> Books</footer>
+
+<section id="about">
+<h2>About Us</h2>
+<p><b>St Andre House of Formation</b> is a Catholic formation house located in <b>Jinja City, Uganda</b>, dedicated to intellectual, spiritual and human formation.</p>
+<p>This Digital Library was created to support seminarians, formators, students, and all seekers of knowledge by providing free access to thousands of Catholic and academic books.</p>
+<p><b>Our Mission:</b> Evangelization through education and free access to knowledge.</p>
+<p><b>Our Motto:</b> <i>Veritas et Caritas - Truth and Charity</i></p>
+</section>
+
+<section id="request">
+<h2>Request a Book</h2>
+<p>Can't find a book you need for your studies? Request it and we will upload within 24 hours.</p>
+<form action="https://formspree.io/f/movnlrbr" method="POST">
+<input type="text" name="book" placeholder="Book Title Needed (e.g., Summa Theologica)" required style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;margin-bottom:10px">
+<input type="email" name="email" placeholder="Your Email or WhatsApp Number" required style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;margin-bottom:10px">
+<button type="submit" style="background:#0a1931;color:white;padding:12px 25px;border:none;border-radius:25px;cursor:pointer;width:100%">Send Request</button>
+</form>
+</section>
+
+<section id="donate">
+<h2>Support Our Mission - Donate</h2>
+<p>Help us keep this library free forever. Your donation helps us buy more books, data and maintain the library for seminarians.</p>
+<div class="donate-box">
+<p><b>Mobile Money (MTN / Airtel) - Uganda</b></p>
+<p style="font-size:18px;font-weight:bold">+256 7XX XXX XXX (St Andre House)</p>
+<p><b>Or Donate via PayPal</b></p>
+<a class="btn-donate" href="https://www.paypal.com/donate/?business=aluraibrary@gmail.com" target="_blank">💛 DONATE via PayPal</a>
+<a class="btn-whatsapp" href="https://wa.me/256700000000?text=I%20want%20to%20donate%20to%20St%20Andre%20Library" target="_blank">Donate via WhatsApp</a>
+<p style="font-size:11px;color:#666;margin-top:10px">All donations are used for library expansion and formation house needs. God bless you!</p>
+</div>
+</section>
+
+<section id="privacy">
+<h2>Privacy Policy</h2>
+<p><b>Effective Date:</b> Jan 2026</p>
+<p>St Andre House of Formation Library respects your privacy.</p>
+<p><b>1. Data Collection:</b> We do not collect personal data. Books are hosted on GitHub.</p>
+<p><b>2. Cookies:</b> We use no tracking cookies. Only GitHub Pages analytics may apply.</p>
+<p><b>3. Downloads:</b> All books are free and open access. No account required.</p>
+<p><b>4. Third Party:</b> We use Formspree for book requests and GitHub for comments. Their privacy policies apply.</p>
+<p><b>5. Contact:</b> For privacy concerns, contact standrehousejinja@gmail.com</p>
+</section>
+
+<section id="contact">
+<h2>Contact Us</h2>
+<p>📍 <b>Address:</b> St Andre House of Formation, Jinja City, Uganda</p>
+<p>📧 <b>Email:</b> opioalfred1997@gmail.com</p>
+<p>📱 <b>Phone / WhatsApp:</b> +256 784 038 264</p>
+<a class="btn-whatsapp" href="https://wa.me/256700000000?text=Hello%20St%20Andre%20House%20of%20Formation%20Library" target="_blank">Chat on WhatsApp</a>
+<br><br>
+<div style="width:100%;height:200px;background:#ddd;border-radius:10px;display:flex;align-items:center;justify-content:center">Google Map - Jinja City Location (Add embed later)</div>
+</section>
+
+<section id="comments">
+<h2>Comments & Reviews</h2>
+<p>Leave a review or suggestion for seminarians and students.</p>
+<script src="https://utteranc.es/client.js" repo="alura5070/Aluraibrary" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+</section>
+
+<footer>
+<p><b>ST ANDRE HOUSE OF FORMATION LIBRARY © 2026,DEVELOPER, OPIO ALFRED </b> - Jinja City, Uganda</p>
+<p><span id="count">0</span> Books Available - Free for All</p>
+<p><a href="#about">About</a> <a href="#privacy">Privacy</a> <a href="#donate">Donate</a> <a href="#contact">Contact</a></p>
+<p style="font-size:11px;opacity:0.6;margin-top:15px">Built for the glory of God and formation of future priests - Veritas et Caritas</p>
+</footer>
 
 <script>
-// PWA INSTALL LOGIC
-let deferredPrompt;
-const installBtn = document.getElementById('installBtn');
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = 'block';
-});
-installBtn.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') installBtn.style.display = 'none';
-    deferredPrompt = null;
-  }
-});
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js');
-}
-
-const REPO = "alura5070/Aluraibrary";
-let allBooks = [];
-let currentCat = 'ALL';
-async function loadBooks() {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}/contents?per_page=100`);
-    const files = await res.json();
-    const pdfs = files.filter(f => f.name.toLowerCase().endsWith('.pdf'));
-    document.getElementById('status').innerText = `Found ${pdfs.length} books`;
-    document.getElementById('count').innerText = pdfs.length;
-    if(pdfs.length===0){document.getElementById('status').innerText='No PDFs found. Upload PDFs!'; return;}
-    allBooks = pdfs.map(file => {
-      let name = file.name.replace('.pdf','').replace(/[-_]/g,' ');
-      let cat = 'EDUCATION';
-      if(name.toLowerCase().includes('law') || name.toLowerCase().includes('power')) cat = 'PHILOSOPHY';
-      let coverFile = null;
-      if(file.name.includes('48-Laws')) coverFile = './cover-48laws.jpg';
-      else if(file.name.includes('Canon')) coverFile = './cover-canon.jpg';
-      else if(file.name.includes('Legion')) coverFile = './cover-legion.jpg';
-      return { title: name, file: file.name, cat: cat, cover: coverFile, search: name.toLowerCase() };
-    });
-    renderBooks(allBooks);
-    setTimeout(()=>{document.getElementById('status').style.display='none';},1000);
-  } catch(e){ document.getElementById('status').innerText = 'Loading... Please refresh. ' + e; }
-}
-function renderBooks(books){
-  const grid = document.getElementById('bookGrid');
-  grid.innerHTML = '';
-  books.forEach(b => {
-    let coverHtml = b.cover ? `<img src="${b.cover}" onerror="this.outerHTML='<div class=cover>${b.title.charAt(0)}</div>'">` : `<div class="cover">${b.title.substring(0,2).toUpperCase()}</div>`;
-    let card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.cat = b.cat;
-    card.innerHTML = `${coverHtml}<span class="tag">${b.cat}</span><h3>${b.title}</h3><a href="./${b.file}" target="_blank">Read / Download</a>`;
-    grid.appendChild(card);
+let deferredPrompt; const installBtn=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='inline-block';});
+installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')installBtn.style.display='none';deferredPrompt=null;}});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./service-worker.js');}
+const REPO="alura5070/Aluraibrary"; let allBooks=[]; let currentCat='ALL';
+async function loadBooks(){
+ try{
+  const res=await fetch(`https://api.github.com/repos/${REPO}/contents?per_page=100`);
+  const files=await res.json(); const pdfs=files.filter(f=>f.name.toLowerCase().endsWith('.pdf'));
+  document.getElementById('count').innerText=pdfs.length;
+  document.getElementById('status').innerText=pdfs.length>0?`Blessed with ${pdfs.length} books`:'No books yet';
+  allBooks=pdfs.map(file=>{
+   let name=file.name.replace('.pdf','').replace(/[-_]/g,' ');
+   let cat='THEOLOGY'; let lower=name.toLowerCase();
+   if(lower.includes('law')||lower.includes('canon'))cat='CANON LAW';
+   else if(lower.includes('philosophy')||lower.includes('power')||lower.includes('48'))cat='PHILOSOPHY';
+   else if(lower.includes('science')||lower.includes('tech'))cat='SCIENCE';
+   else if(lower.includes('educat'))cat='EDUCATION';
+   let coverFile=null; if(file.name.includes('48-Laws'))coverFile='./cover-48laws.jpg'; else if(file.name.includes('Canon'))coverFile='./cover-canon.jpg'; else if(file.name.includes('Legion'))coverFile='./cover-legion.jpg';
+   return{title:name,file:file.name,cat:cat,cover:coverFile,search:name.toLowerCase()};
   });
+  renderBooks(allBooks); document.getElementById('status').style.display='none';
+ }catch(e){document.getElementById('status').innerText='Loading...';}
 }
-function filterBooks(){
-  let q = document.getElementById('searchBox').value.toLowerCase();
-  let filtered = allBooks.filter(b => b.search.includes(q) && (currentCat==='ALL' || b.cat===currentCat));
-  renderBooks(filtered);
-}
-function filterCategory(cat,btn){
-  currentCat=cat;
-  document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  filterBooks();
-}
+function renderBooks(books){const grid=document.getElementById('bookGrid'); grid.innerHTML=''; books.forEach(b=>{let coverHtml=b.cover?`<img src="${b.cover}" onerror="this.outerHTML='<div class=cover>${b.title.charAt(0)}</div>'">`:`<div class="cover">${b.title.substring(0,2).toUpperCase()}</div>`; let card=document.createElement('div'); card.className='card'; card.innerHTML=`${coverHtml}<span class="tag">${b.cat}</span><h3>${b.title}</h3><a href="./${b.file}" target="_blank">Read / Download</a>`; grid.appendChild(card);});}
+function filterBooks(){let q=document.getElementById('searchBox').value.toLowerCase(); let filtered=allBooks.filter(b=>b.search.includes(q)&&(currentCat==='ALL'||b.cat===currentCat)); renderBooks(filtered);}
+function filterCategory(cat,btn){currentCat=cat; document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); filterBooks();}
 loadBooks();
 </script>
 </body>
