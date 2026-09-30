@@ -37,12 +37,12 @@ nav a:hover{background:white;color:#0a1931}
 </header>
 
 <div class="hero">
-<h2>One-Click Direct PDF Library</h2>
-<p>500 books per category - PDF downloads directly - No extra stages</p>
+<h2>ALURA LIBRARY</h2>
+<p>100,000+ Books - Open Library</p>
 </div>
 
 <div class="search">
-<input type="text" id="searchBox" onkeyup="if(this.value.length>2)searchBooks()" placeholder="Search: Aquinas, Aristotle, Canon Law, Science...">
+<input type="text" id="searchBox" onkeyup="if(this.value.length>2)searchBooks()" placeholder="Search: Philosophy, Theology, Aquinas, Aristotle, Canon Law, Science...">
 </div>
 
 <div class="filters">
@@ -80,11 +80,11 @@ async function loadTopic(topic, btn){
   statusEl.innerText = `Loading ${topic.toUpperCase()} - direct PDFs...`;
   grid.innerHTML = '';
   try{
-    const res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=32`);
+    const res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=500`);
     const data = await res.json();
     let results = data.results;
     if(!results || results.length===0){
-      const res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=32`);
+      const res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=500`);
       const data2 = await res2.json();
       results = data2.results;
     }
@@ -107,7 +107,14 @@ function renderBooks(books, topic){
     
     const card = document.createElement('div');
     card.className='card';
-    card.innerHTML = `
+        card.innerHTML = `
+      <img src="${cover}" onerror="this.outerHTML='<div class=cover>${b.title.substring(0,2).toUpperCase()}</div>'">
+      <span class="tag">${topic.toUpperCase()}</span>
+      <h3>${title}<br><small style="color:#777">${author}</small></h3>
+      <a class="read-btn" href="https://www.gutenberg.org/ebooks/${b.id}" target="_blank" style="background:#185adb">📖 READ ONLINE</a>
+      <a class="read-btn" href="${pdfDirect}" target="_blank" download>📥 DOWNLOAD PDF DIRECT</a>
+      <a class="read-btn2" href="${epubDirect}" target="_blank">📱 EPUB</a>
+    `;
       <img src="${cover}" onerror="this.outerHTML='<div class=cover>${b.title.substring(0,2).toUpperCase()}</div>'">
       <span class="tag">${topic.toUpperCase()}</span>
       <h3>${title}<br><small style="color:#777">${author}</small></h3>
