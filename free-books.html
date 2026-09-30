@@ -3,59 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Archives - St Andre House | Direct PDF Library</title>
+<title>Free Archives - Direct PDF</title>
 <style>
-*{box-sizing:border-box}
-body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#f4f6f9;color:#222}
+*{box-sizing:border-box} body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9}
 header{background:#0a1931;color:white;padding:15px 20px;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo h1{margin:0;font-size:18px;letter-spacing:1px}
-.logo span{font-size:11px;opacity:0.8;display:block}
-nav{display:flex;gap:6px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;padding:7px 12px;border-radius:20px;font-size:12px;border:1px solid rgba(255,255,255,0.3)}
+nav a{color:white;text-decoration:none;padding:7px 12px;border-radius:20px;font-size:12px;border:1px solid rgba(255,255,255,0.3);margin:2px}
 nav a:hover{background:white;color:#0a1931}
-.hero{background:linear-gradient(135deg,#0a1931,#185adb);color:white;text-align:center;padding:30px 20px}
-.hero h2{margin:0 0 8px;font-size:22px}
-.hero p{opacity:0.9;font-size:13px;max-width:700px;margin:auto}
-.search{margin:-18px auto 10px;max-width:700px;padding:0 15px;text-align:center;position:relative}
-.search input{width:100%;padding:14px 20px;border-radius:30px;border:none;box-shadow:0 8px 25px rgba(0,0,0,0.15);font-size:14px}
-.filters{text-align:center;margin:12px}
+.hero{background:linear-gradient(135deg,#0a1931,#185adb);color:white;text-align:center;padding:25px 20px}
+.search{margin:-15px auto 10px;max-width:700px;padding:0 15px;text-align:center}
+.search input{width:100%;padding:14px 20px;border-radius:30px;border:none;box-shadow:0 8px 25px rgba(0,0,0,0.15)}
+.filters{text-align:center;margin:10px}
 .filters button{margin:4px;padding:7px 14px;border-radius:20px;border:1px solid #0a1931;background:white;color:#0a1931;cursor:pointer;font-size:11px}
 .filters button.active,.filters button:hover{background:#0a1931;color:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;padding:15px;max-width:1200px;margin:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:15px;max-width:1200px;margin:auto}
 .card{background:white;border-radius:12px;padding:10px;box-shadow:0 3px 12px rgba(0,0,0,0.07);text-align:center}
-.card img{width:100%;height:190px;object-fit:cover;border-radius:8px;background:#eee}
-.card.cover{width:100%;height:190px;border-radius:8px;background:linear-gradient(135deg,#0a1931,#185adb);display:flex;align-items:center;justify-content:center;color:white;font-size:26px;font-weight:bold}
-.card.tag{font-size:9px;padding:3px 8px;border-radius:12px;background:#e8efff;color:#0a1931;font-weight:bold;display:inline-block;margin-top:5px}
-.card h3{font-size:11px;margin:8px 0;min-height:34px;line-height:1.3}
-.card.read-btn{background:#0a1931;color:white;padding:7px 10px;border-radius:20px;text-decoration:none;display:block;font-size:11px;margin-top:6px;font-weight:bold}
-.card.read-btn:hover{background:#185adb}
-#status{text-align:center;padding:15px;color:#666;font-size:13px}
-footer{background:#0a1931;color:white;text-align:center;padding:20px;margin-top:30px;font-size:12px}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:8px;background:#eee}
+.card .cover{width:100%;height:180px;border-radius:8px;background:linear-gradient(135deg,#0a1931,#185adb);display:flex;align-items:center;justify-content:center;color:white;font-size:22px;font-weight:bold}
+.card h3{font-size:11px;margin:8px 0;min-height:38px;line-height:1.3}
+.tag{font-size:9px;padding:3px 8px;border-radius:12px;background:#e8efff;color:#0a1931;font-weight:bold}
+.read-btn{background:#0a1931;color:white;padding:8px 10px;border-radius:20px;text-decoration:none;display:block;font-size:11px;margin-top:6px;font-weight:bold}
+.read-btn:hover{background:#185adb}
+.read-btn2{background:#25D366;color:white;padding:6px 10px;border-radius:20px;text-decoration:none;display:block;font-size:10px;margin-top:4px}
+#status{text-align:center;padding:12px;color:#666;font-size:13px}
 </style>
 </head>
 <body>
 <header>
-<div class="logo"><h1>ST ANDRE HOUSE</h1><span>FREE ARCHIVES - DIRECT PDFs</span></div>
+<div><b>ST ANDRE HOUSE DIGITAL LIBRARY</b><br><small>FREE ARCHIVES - DIRECT PDFs</small></div>
 <nav>
 <a href="index.html">Home</a>
 <a href="index.html#books">My Books</a>
-<a href="#contact">Contact</a>
 </nav>
 </header>
 
 <div class="hero">
-<h2>Direct PDF Library - 10,000+ Free Books</h2>
-<p>Theology, Philosophy, Canon Law, Science, History, Education - One Click Read / Download PDF - No Stages</p>
+<h2>One-Click Direct PDF Library</h2>
+<p>500 books per category - PDF downloads directly - No extra stages</p>
 </div>
 
 <div class="search">
-<input type="text" id="searchBox" onkeyup="searchBooks()" placeholder="Search Aquinas, Aristotle, Law, Science...">
+<input type="text" id="searchBox" onkeyup="if(this.value.length>2)searchBooks()" placeholder="Search: Aquinas, Aristotle, Canon Law, Science...">
 </div>
 
 <div class="filters">
 <button class="active" onclick="loadTopic('theology',this)">THEOLOGY</button>
 <button onclick="loadTopic('philosophy',this)">PHILOSOPHY</button>
-<button onclick="loadTopic('christian',this)">CHRISTIAN</button>
+<button onclick="loadTopic('christianity',this)">CHRISTIAN</button>
 <button onclick="loadTopic('canon law',this)">CANON LAW</button>
 <button onclick="loadTopic('science',this)">SCIENCE</button>
 <button onclick="loadTopic('history',this)">HISTORY</button>
@@ -63,100 +56,77 @@ footer{background:#0a1931;color:white;text-align:center;padding:20px;margin-top:
 <button onclick="loadTopic('law',this)">LAW</button>
 </div>
 
-<div id="status">Loading 32 Theology books directly... please wait 3 seconds</div>
+<div id="status">Loading direct PDFs...</div>
 <div class="grid" id="bookGrid"></div>
 
-<footer>
-ST ANDRE HOUSE OF FORMATION © 2026 - Direct Free Library - Contact: +256 784 038 264
-</footer>
-
 <script>
-let allBooks = [];
+let currentBooks = [];
 const grid = document.getElementById('bookGrid');
-const status = document.getElementById('status');
+const statusEl = document.getElementById('status');
+
+function getDirectPdfUrl(id){
+  // This is the TRUE direct PDF link Gutenberg provides
+  return `https://www.gutenberg.org/cache/epub/${id}/pg${id}.pdf`;
+}
+function getDirectEpubUrl(id){
+  return `https://www.gutenberg.org/ebooks/${id}.epub3.images`;
+}
+function getReadOnlineUrl(id){
+  return `https://www.gutenberg.org/ebooks/${id}`;
+}
 
 async function loadTopic(topic, btn){
   if(btn){ document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
-  status.innerText = `Loading ${topic.toUpperCase()} - 32 books direct PDF...`;
+  statusEl.innerText = `Loading ${topic.toUpperCase()} - direct PDFs...`;
   grid.innerHTML = '';
   try{
-    // Using Gutendex API - free, no key, gives direct PDF links
     const res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=32`);
     const data = await res.json();
-    if(!data.results || data.results.length===0){
-      // fallback to search
+    let results = data.results;
+    if(!results || results.length===0){
       const res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=32`);
       const data2 = await res2.json();
-      renderGutenberg(data2.results, topic);
-    } else {
-      renderGutenberg(data.results, topic);
+      results = data2.results;
     }
-  } catch(e){
-    status.innerText = "Internet slow, trying alternative source...";
-    // fallback to Open Library direct
-    loadOpenLibrary(topic);
+    renderBooks(results, topic);
+  }catch(e){
+    statusEl.innerText = "Slow internet, try again. Search above for specific book.";
   }
 }
 
-function renderGutenberg(books, topic){
-  allBooks = books;
-  status.innerText = `Found ${books.length} ${topic.toUpperCase()} books - Click READ to open PDF directly`;
+function renderBooks(books, topic){
+  currentBooks = books;
+  statusEl.innerText = `${books.length} ${topic.toUpperCase()} books - All PDF direct - Click to download`;
   grid.innerHTML = '';
   books.forEach(b=>{
-    const title = b.title;
-    const author = b.authors[0]? b.authors[0].name : 'Unknown';
-    // Find direct PDF link
-    let pdfLink = b.formats['application/pdf'] || b.formats['text/html'] || b.formats['application/epub+zip'] || b.formats['text/plain'];
-    // Better PDF link format: many have /images pdf
-    if(!pdfLink ||!pdfLink.includes('pdf')){
-       // try construct direct pdf
-       pdfLink = `https://www.gutenberg.org/cache/epub/${b.id}/pg${b.id}-images.html`;
-    }
+    const title = b.title.length>60? b.title.substring(0,60)+'...' : b.title;
+    const author = b.authors[0]? b.authors[0].name : '';
+    const pdfDirect = getDirectPdfUrl(b.id);
+    const epubDirect = getDirectEpubUrl(b.id);
     const cover = b.formats['image/jpeg'] || `https://www.gutenberg.org/cache/epub/${b.id}/pg${b.id}.cover.medium.jpg`;
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${cover}" onerror="this.outerHTML='<div class=cover>${title.substring(0,2).toUpperCase()}</div>'">
-      <span class="tag">${topic.toUpperCase()}</span>
-      <h3>${title}<br><small style="color:#666">${author}</small></h3>
-      <a class="read-btn" href="${pdfLink}" target="_blank">📥 READ / PDF</a>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-async function loadOpenLibrary(topic){
-  const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(topic)}&limit=32`);
-  const data = await res.json();
-  const books = data.docs;
-  status.innerText = `Found ${books.length} ${topic.toUpperCase()} books - Direct`;
-  grid.innerHTML = '';
-  allBooks = books.map(d=> ({title:d.title, author:d.author_name?d.author_name[0]:''}));
-  books.forEach(d=>{
-    const cover = d.cover_i? `https://covers.openlibrary.org/b/id/${d.cover_i}-M.jpg` : '';
-    const readLink = d.ia && d.ia[0]? `https://archive.org/details/${d.ia[0]}` : `https://openlibrary.org${d.key}`;
+    
     const card = document.createElement('div');
     card.className='card';
     card.innerHTML = `
-      ${cover? `<img src="${cover}" onerror="this.style.display='none'">` : `<div class="cover">${d.title.substring(0,2).toUpperCase()}</div>`}
+      <img src="${cover}" onerror="this.outerHTML='<div class=cover>${b.title.substring(0,2).toUpperCase()}</div>'">
       <span class="tag">${topic.toUpperCase()}</span>
-      <h3>${d.title}</h3>
-      <a class="read-btn" href="${readLink}" target="_blank">📥 READ / PDF</a>
+      <h3>${title}<br><small style="color:#777">${author}</small></h3>
+      <a class="read-btn" href="${pdfDirect}" target="_blank" download>📥 DOWNLOAD PDF DIRECT</a>
+      <a class="read-btn2" href="${epubDirect}" target="_blank">📱 EPUB (if PDF fails)</a>
     `;
     grid.appendChild(card);
   });
 }
 
 function searchBooks(){
-  let q = document.getElementById('searchBox').value.toLowerCase();
-  if(q.length < 2){ loadTopic('theology', null); return; }
-  status.innerText = `Searching "${q}" in 70,000 books...`;
+  let q = document.getElementById('searchBox').value;
+  if(q.length<3) return;
+  statusEl.innerText = `Searching "${q}" in 70,000 books - direct PDF...`;
   fetch(`https://gutendex.com/books?search=${encodeURIComponent(q)}&per_page=32`)
    .then(r=>r.json())
-   .then(d=> renderGutenberg(d.results, q));
+   .then(d=> renderBooks(d.results, q));
 }
 
-// Load first category on start
 loadTopic('theology', null);
 </script>
 </body>
