@@ -1,2 +1,88 @@
-   <a href="index.html">Home</a>
-   <a href="books.html">Books</a>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Free Archives - St Andre Library</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+ body { font-family: Arial; background: #f5f5f0; margin: 0; padding: 0; }
+ .header { background: #0a1931; color: #f7c948; padding: 20px; text-align: center; }
+ .container { padding: 20px; max-width: 900px; margin: auto; }
+ .card { background: white; padding: 15px; margin-bottom: 20px; border-radius: 10px; border-left: 5px solid #0a1931; }
+ .card h3 { margin-top: 0; color: #0a1931; }
+ a { color: #0a1931; font-weight: bold; text-decoration: none; }
+ a:hover { color: #d4a017; }
+ .search-box { text-align: center; margin: 20px 0; }
+ input { padding: 10px; width: 60%; border-radius: 5px; border: 1px solid #0a1931; }
+ button { padding: 10px 15px; background: #0a1931; color: #f7c948; border: none; border-radius: 5px; cursor: pointer; }
+ .tag { background: #f7c948; padding: 3px 8px; border-radius: 5px; font-size: 12px; }
+ .nav-btn { background:white; color:#0a1931; padding:8px 15px; border-radius:20px; text-decoration:none; margin:5px; display:inline-block; }
+ .nav-btn-yellow { background:#ffc947; color:#0a1931; padding:8px 15px; border-radius:20px; text-decoration:none; margin:5px; display:inline-block; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ST. ANDRE HOUSE - FREE WORLD ARCHIVES</h1>
+  <p>Access over 10 Million Free Books Legally - For Formation & Study</p>
+  <div style="margin-top:15px;">
+    <a class="nav-btn" href="index.html">🏠 Home</a>
+    <a class="nav-btn-yellow" href="index.html#books">📚 Books</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card" style="text-align:center; background: #fffbe6;">
+    <h3>🔍 Search Any Book in the World (Free)</h3>
+    <div class="search-box">
+      <input type="text" id="bookSearch" placeholder="Type: Aquinas, Aristotle, Theology, etc...">
+      <button onclick="searchBooks()">Search</button>
+    </div>
+    <p><small>This will search Open Library (5M+ books) & Gutenberg</small></p>
+  </div>
+
+  <div class="card">
+    <h3>1. CHRISTIAN & CATHOLIC FORMATION <span class="tag">CCEL & Internet Archive</span></h3>
+    <ul>
+      <li><a href="https://www.ccel.org/fathers.html" target="_blank">Church Fathers - All Volumes (CCEL)</a></li>
+      <li><a href="https://www.ccel.org/ccel/aquinas/summa.html" target="_blank">Summa Theologica - St. Thomas Aquinas</a></li>
+      <li><a href="https://www.ccel.org/ccel/augustine/confessions.html" target="_blank">Confessions - St. Augustine</a></li>
+      <li><a href="https://archive.org/details/libraryoffathers" target="_blank">Library of Fathers - 48 Volumes</a></li>
+      <li><a href="https://www.vatican.va/archive/catechism/ccc_toc.htm" target="_blank">Catechism of Catholic Church - Vatican</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>2. PHILOSOPHY <span class="tag">70,000 Books - Gutenberg</span></h3>
+    <ul>
+      <li><a href="https://www.gutenberg.org/ebooks/author/19" target="_blank">Plato - All Works</a></li>
+      <li><a href="https://www.gutenberg.org/ebooks/author/13" target="_blank">Aristotle - All Works</a></li>
+      <li><a href="https://www.gutenberg.org/ebooks/bookshelf/19" target="_blank">Philosophy Bookshelf - 1,200 Books</a></li>
+      <li><a href="https://www.gutenberg.org/ebooks/4280" target="_blank">Meditations - Descartes</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>3. THEOLOGY, SCIENCE, HISTORY & ALL DISCIPLINES <span class="tag">Open Access</span></h3>
+    <ul>
+      <li><a href="https://openlibrary.org/subjects/theology" target="_blank">Theology - 100,000+ Books - Open Library</a></li>
+      <li><a href="https://openlibrary.org/subjects/philosophy" target="_blank">Philosophy - Open Library</a></li>
+      <li><a href="https://www.gutenberg.org/ebooks/bookshelf/" target="_blank">All Bookshelves by Subject - Gutenberg</a></li>
+      <li><a href="https://directory.doabooks.org/" target="_blank">DOAB - 80,000 Academic Books</a></li>
+      <li><a href="https://archive.org/details/texts" target="_blank">Internet Archive - 40 Million Texts</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+function searchBooks(){
+  var query = document.getElementById('bookSearch').value;
+  if(query === ""){ alert("Please type a book name, e.g. Aquinas"); return; }
+  window.open("https://openlibrary.org/search?q=" + query, "_blank");
+  window.open("https://www.gutenberg.org/ebooks/search/?query=" + query, "_blank");
+}
+</script>
+
+</body>
+</html>
