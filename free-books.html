@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Archives - Direct PDF</title>
+<title>ALURAIBRARY</title>
 <style>
 *{box-sizing:border-box} body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9}
 header{background:#0a1931;color:white;padding:15px 20px;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
@@ -29,7 +29,7 @@ nav a:hover{background:white;color:#0a1931}
 </head>
 <body>
 <header>
-<div><b>ST ANDRE HOUSE DIGITAL LIBRARY</b><br><small>FREE ARCHIVES - DIRECT PDFs</small></div>
+<div><b>ST ANDRE HOUSE DIGITAL LIBRARY</b><br><small>ALURAIBRARY</small></div>
 <nav>
 <a href="index.html">Home</a>
 <a href="index.html#books">My Books</a>
@@ -80,11 +80,11 @@ async function loadTopic(topic, btn){
   statusEl.innerText = `Loading ${topic.toUpperCase()} - direct PDFs...`;
   grid.innerHTML = '';
   try{
-    const res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=500`);
+    const res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=100`);
     const data = await res.json();
     let results = data.results;
     if(!results || results.length===0){
-      const res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=500`);
+      const res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=100`);
       const data2 = await res2.json();
       results = data2.results;
     }
@@ -129,7 +129,7 @@ function searchBooks(){
   let q = document.getElementById('searchBox').value;
   if(q.length<3) return;
   statusEl.innerText = `Searching "${q}" in 70,000 books - direct PDF...`;
-  fetch(`https://gutendex.com/books?search=${encodeURIComponent(q)}&per_page=32`)
+  fetch(`https://gutendex.com/books?search=${encodeURIComponent(q)}&per_page=100`)
    .then(r=>r.json())
    .then(d=> renderBooks(d.results, q));
 }
