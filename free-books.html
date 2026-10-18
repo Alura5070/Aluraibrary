@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALURAIBRARY</title>
+<title>ALURAIBRARY - 100,000 Free Books</title>
 <style>
 *{box-sizing:border-box} body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9}
 header{background:#0a1931;color:white;padding:15px 20px;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
@@ -29,7 +29,7 @@ nav a:hover{background:white;color:#0a1931}
 </head>
 <body>
 <header>
-<div><b>ST ANDRE HOUSE DIGITAL LIBRARY</b><br><small>ALURAIBRARY</small></div>
+<div><b>ST ANDRE HOUSE DIGITAL LIBRARY</b><br><small>ALURAIBRARY - 100,000+ Free Books</small></div>
 <nav>
 <a href="index.html">Home</a>
 <a href="index.html#books">My Books</a>
@@ -38,11 +38,11 @@ nav a:hover{background:white;color:#0a1931}
 
 <div class="hero">
 <h2>ALURA LIBRARY</h2>
-<p>100,000+ Books - Open Library</p>
+<p>100,000+ Books - Open Library - Direct PDF</p>
 </div>
 
 <div class="search">
-<input type="text" id="searchBox" onkeyup="if(this.value.length>2)searchBooks()" placeholder="Search: Philosophy, Theology, Aquinas, Aristotle, Canon Law, Science...">
+<input type="text" id="searchBox" placeholder="Search: Philosophy, Theology, Aquinas, Aristotle, Canon Law, Science...">
 </div>
 
 <div class="filters">
@@ -60,81 +60,87 @@ nav a:hover{background:white;color:#0a1931}
 <div class="grid" id="bookGrid"></div>
 
 <script>
-let currentBooks = [];
 const grid = document.getElementById('bookGrid');
 const statusEl = document.getElementById('status');
+const searchBox = document.getElementById('searchBox');
 
 function getDirectPdfUrl(id){
-  // This is the TRUE direct PDF link Gutenberg provides
   return `https://www.gutenberg.org/cache/epub/${id}/pg${id}.pdf`;
-}
-function getDirectEpubUrl(id){
-  return `https://www.gutenberg.org/ebooks/${id}.epub3.images`;
 }
 function getReadOnlineUrl(id){
   return `https://www.gutenberg.org/ebooks/${id}`;
 }
 
 async function loadTopic(topic, btn){
-  if(btn){ document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  if(btn){
+    document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
   statusEl.innerText = `Loading ${topic.toUpperCase()} - direct PDFs...`;
   grid.innerHTML = '';
   try{
-    const res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=100`);
-    const data = await res.json();
+    let res = await fetch(`https://gutendex.com/books?topic=${encodeURIComponent(topic)}&per_page=48`);
+    let data = await res.json();
     let results = data.results;
     if(!results || results.length===0){
-      const res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=100`);
-      const data2 = await res2.json();
+      let res2 = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(topic)}&per_page=48`);
+      let data2 = await res2.json();
       results = data2.results;
+    }
+    if(results.length===0){
+      statusEl.innerText = `No books found for ${topic}. Try search above.`;
+      return;
     }
     renderBooks(results, topic);
   }catch(e){
-    statusEl.innerText = "Slow internet, try again. Search above for specific book.";
+    statusEl.innerText = "Error: Gutendex is slow. Please refresh. " + e.message;
   }
 }
 
 function renderBooks(books, topic){
-  currentBooks = books;
-  statusEl.innerText = `${books.length} ${topic.toUpperCase()} books - All PDF direct - Click to download`;
+  statusEl.innerText = `${books.length} ${topic.toUpperCase()} books - All direct PDF`;
   grid.innerHTML = '';
   books.forEach(b=>{
     const title = b.title.length>60? b.title.substring(0,60)+'...' : b.title;
-    const author = b.authors[0]? b.authors[0].name : '';
+    const author = b.authors[0]? b.authors[0].name : 'Unknown';
     const pdfDirect = getDirectPdfUrl(b.id);
-    const epubDirect = getDirectEpubUrl(b.id);
+    const readUrl = getReadOnlineUrl(b.id);
     const cover = b.formats['image/jpeg'] || `https://www.gutenberg.org/cache/epub/${b.id}/pg${b.id}.cover.medium.jpg`;
     
     const card = document.createElement('div');
     card.className='card';
-        card.innerHTML = `
-      <img src="${cover}" onerror="this.outerHTML='<div class=cover>${b.title.substring(0,2).toUpperCase()}</div>'">
+    card.innerHTML = `
+      <img src="${cover}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="cover" style="display:none">${b.title.substring(0,2).toUpperCase()}</div>
       <span class="tag">${topic.toUpperCase()}</span>
       <h3>${title}<br><small style="color:#777">${author}</small></h3>
-      <a class="read-btn" href="https://www.gutenberg.org/ebooks/${b.id}" target="_blank" style="background:#185adb">📖 READ ONLINE</a>
-      <a class="read-btn" href="${pdfDirect}" target="_blank" download>📥 DOWNLOAD PDF DIRECT</a>
-      <a class="read-btn2" href="${epubDirect}" target="_blank">📱 EPUB</a>
-    `;
-      <img src="${cover}" onerror="this.outerHTML='<div class=cover>${b.title.substring(0,2).toUpperCase()}</div>'">
-      <span class="tag">${topic.toUpperCase()}</span>
-      <h3>${title}<br><small style="color:#777">${author}</small></h3>
-      <a class="read-btn" href="${pdfDirect}" target="_blank" download>📥 DOWNLOAD PDF DIRECT</a>
-      <a class="read-btn2" href="${epubDirect}" target="_blank">📱 EPUB (if PDF fails)</a>
+      <a class="read-btn" href="${readUrl}" target="_blank" style="background:#185adb">📖 READ ONLINE</a>
+      <a class="read-btn" href="${pdfDirect}" target="_blank">📥 DOWNLOAD PDF DIRECT</a>
     `;
     grid.appendChild(card);
   });
 }
 
-function searchBooks(){
-  let q = document.getElementById('searchBox').value;
+let searchTimeout;
+searchBox.addEventListener('keyup', ()=>{
+  clearTimeout(searchTimeout);
+  let q = searchBox.value.trim();
   if(q.length<3) return;
-  statusEl.innerText = `Searching "${q}" in 70,000 books - direct PDF...`;
-  fetch(`https://gutendex.com/books?search=${encodeURIComponent(q)}&per_page=100`)
-   .then(r=>r.json())
-   .then(d=> renderBooks(d.results, q));
-}
+  searchTimeout = setTimeout(async ()=>{
+    statusEl.innerText = `Searching "${q}"...`;
+    grid.innerHTML='';
+    try{
+      let res = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(q)}&per_page=48`);
+      let data = await res.json();
+      renderBooks(data.results, q);
+    }catch(e){
+      statusEl.innerText = "Search failed, try again";
+    }
+  }, 600);
+});
 
-loadTopic('theology', null);
+// Start with Theology
+loadTopic('theology', document.querySelector('.filters button'));
 </script>
 </body>
 </html>
