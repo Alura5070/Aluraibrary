@@ -7,7 +7,7 @@
 <meta name="description" content="Official Digital Library of St Andre House of Formation, Jinja City. Free Catholic, Theology, Philosophy, Science books.">
 <meta name="keywords" content="St Andre House of Formation, Jinja City Library, Catholic library Uganda">
 <meta name="author" content="St Andre House of Formation, Jinja">
- <meta name="google-site-verification" content="En61lmngn7aj_CW9gyCPaexyEc5GZ-afSZaCVs17obo" />
+<meta name="google-site-verification" content="En61lmngn7aj_CW9gyCPaexyEc5GZ-afSZaCVs17obo" />
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0a1931">
 <style>
@@ -144,37 +144,79 @@ let deferredPrompt; const installBtn=document.getElementById('installBtn');
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='inline-block';});
 installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')installBtn.style.display='none';deferredPrompt=null;}});
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./service-worker.js');}
-const REPO="alura5070/Aluraibrary"; let allBooks=[]; let currentCat='ALL';
+
+let allBooks=[]; 
+let currentCat='ALL';
+
+// --- FIXED LIST: NO MORE GITHUB API LIMIT ---
+// Add all your PDF file names here exactly as they appear in GitHub (case sensitive)
+const pdfFiles = [
+"48-Laws-of-Power.pdf",
+"Canon-Law.pdf",
+"Legion-of-Mary.pdf",
+"Summa-Theologica.pdf",
+"Theology-of-the-Body.pdf",
+"Introduction-to-Philosophy.pdf",
+"Science-and-Faith.pdf",
+"Church-History.pdf"
+];
+
 async function loadBooks(){
- try{
-  const res=await fetch(`https://api.github.com/repos/${REPO}/contents?per_page=100`);
-  const files=await res.json(); const pdfs=files.filter(f=>f.name.toLowerCase().endsWith('.pdf'));
-  document.getElementById('count').innerText=pdfs.length;
-  document.getElementById('status').innerText=`Found ${pdfs.length} books`;
-  allBooks=pdfs.map(file=>{
-   let name=file.name.replace('.pdf','').replace(/[-_]/g,' ');
-   let cat='THEOLOGY'; let lower=name.toLowerCase();
-   if(lower.includes('law')||lower.includes('canon'))cat='CANON LAW';
-   else if(lower.includes('philosophy')||lower.includes('power')||lower.includes('48'))cat='PHILOSOPHY';
-   else if(lower.includes('science')||lower.includes('tech'))cat='SCIENCE';
-   else if(lower.includes('educat'))cat='EDUCATION';
-   let coverFile=null; if(file.name.includes('48-Laws'))coverFile='./cover-48laws.jpg'; else if(file.name.includes('Canon'))coverFile='./cover-canon.jpg'; else if(file.name.includes('Legion'))coverFile='./cover-legion.jpg';
-   return{title:name,file:file.name,cat:cat,cover:coverFile,search:name.toLowerCase()};
-  });
-  renderBooks(allBooks); document.getElementById('status').style.display='none';
- }catch(e){document.getElementById('status').innerText='Loading error, refresh';}
+  try{
+   document.getElementById('count').innerText=pdfFiles.length;
+   document.getElementById('status').innerText=`Found ${pdfFiles.length} books - Loading...`;
+   
+   allBooks=pdfFiles.map(fileName=>{
+    let name=fileName.replace('.pdf','').replace(/[-_]/g,' ');
+    let cat='THEOLOGY'; 
+    let lower=name.toLowerCase();
+    if(lower.includes('law')||lower.includes('canon'))cat='CANON LAW';
+    else if(lower.includes('philosophy')||lower.includes('power')||lower.includes('48'))cat='PHILOSOPHY';
+    else if(lower.includes('science')||lower.includes('tech'))cat='SCIENCE';
+    else if(lower.includes('educat'))cat='EDUCATION';
+    
+    let coverFile=null; 
+    if(fileName.includes('48-Laws'))coverFile='./cover-48laws.jpg'; 
+    else if(fileName.toLowerCase().includes('canon'))coverFile='./cover-canon.jpg'; 
+    else if(fileName.toLowerCase().includes('legion'))coverFile='./cover-legion.jpg';
+    
+    return{title:name,file:fileName,cat:cat,cover:coverFile,search:name.toLowerCase()};
+   });
+   
+   renderBooks(allBooks); 
+   document.getElementById('status').style.display='none';
+   document.getElementById('count').innerText=allBooks.length;
+   
+  }catch(e){
+   document.getElementById('status').innerText='Error: '+e.message;
+  }
 }
+
 function renderBooks(books){
- const grid=document.getElementById('bookGrid'); grid.innerHTML='';
+ const grid=document.getElementById('bookGrid'); 
+ grid.innerHTML='';
+ if(books.length===0){
+   grid.innerHTML='<p style="text-align:center;width:100%;color:#666">No books found. Check PDF file names.</p>';
+   return;
+ }
  books.forEach(b=>{
   let coverHtml=b.cover?`<img src="${b.cover}" onerror="this.outerHTML='<div class=cover>${b.title.charAt(0)}</div>'">`:`<div class="cover">${b.title.substring(0,2).toUpperCase()}</div>`;
   let card=document.createElement('div'); card.className='card';
-  card.innerHTML=`${coverHtml}<span class="tag">${b.cat}</span><h3>${b.title}</h3><a class="read-btn" href="./${b.file}" target="_blank">📥 Read / Download</a>`;
+  card.innerHTML=`${coverHtml}<span class="tag">${b.cat}</span><h3>${b.title}</h3><a class="read-btn" href="./${encodeURIComponent(b.file)}" target="_blank">📥 Read / Download</a>`;
   grid.appendChild(card);
  });
 }
-function filterBooks(){let q=document.getElementById('searchBox').value.toLowerCase(); let filtered=allBooks.filter(b=>b.search.includes(q)&&(currentCat==='ALL'||b.cat===currentCat)); renderBooks(filtered);}
-function filterCategory(cat,btn){currentCat=cat; document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); filterBooks();}
+function filterBooks(){
+  let q=document.getElementById('searchBox').value.toLowerCase(); 
+  let filtered=allBooks.filter(b=>b.search.includes(q)&&(currentCat==='ALL'||b.cat===currentCat)); 
+  renderBooks(filtered);
+}
+function filterCategory(cat,btn){
+  currentCat=cat; 
+  document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active')); 
+  btn.classList.add('active'); 
+  filterBooks();
+}
 loadBooks();
 </script>
 </body>
